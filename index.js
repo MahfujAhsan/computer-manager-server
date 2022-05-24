@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 require('dotenv').config();
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 var jwt = require('jsonwebtoken');
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const port = process.env.PORT || 5000;
@@ -34,6 +35,7 @@ async function run() {
         const productsCollection = client.db('computerManager').collection('products');
         const ordersCollection = client.db('computerManager').collection('orders');
         const usersCollection = client.db('computerManager').collection('users');
+        const paymentCollection = client.db('computerManager').collection('payments');
 
         const verifyAdmin = async (req, res, next) => {
             const requester = req.decoded.email;
@@ -99,7 +101,34 @@ async function run() {
             const query = {_id: ObjectId(id)};
             const order = await ordersCollection.findOne(query);
             res.send(order);
+        });
+
+        app.patch('/orders/:id', verifyJWT, async (req, res) => {
+            const id = req.params.id;
+            const payment = req.body;
+            const query = {_id: ObjectId(id)};
+            const updatedDoc = {
+                $set: {
+                    paid: true,
+                    transactionId: payment.transactionId,
+                }
+            };
+            const result = await paymentCollection.insertOne(payment);
+            const updatedOrder = await ordersCollection.updateOne(query, updatedDoc);
+            res.send(updatedDoc)
         })
+
+        app.post('/create-payment-intent', verifyJWT, async(req, res) => {
+            const order = req.body;
+            const price = order.price;
+            const amount = price*100;
+            const paymentIntent = await stripe.paymentIntents.create({
+                amount: amount,
+                currency: 'usd',
+                payment_method_types: ['card']
+            });
+            res.send({clientSecret: paymentIntent.client_secret})
+        });
 
         app.get('/admin/:email', async (req, res) => {
             const email = req.params.email;
