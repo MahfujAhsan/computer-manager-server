@@ -63,7 +63,7 @@ async function run() {
 
         app.delete('/products/:id', verifyJWT, verifyAdmin, async (req, res) => {
             const id = req.params.id;
-            const query = {_id: ObjectId(id)};
+            const query = { _id: ObjectId(id) };
             const result = await productsCollection.deleteOne(query);
             res.send(result);
         });
@@ -98,7 +98,7 @@ async function run() {
 
         app.get('/orders/:id', verifyJWT, async (req, res) => {
             const id = req.params.id;
-            const query = {_id: ObjectId(id)};
+            const query = { _id: ObjectId(id) };
             const order = await ordersCollection.findOne(query);
             res.send(order);
         });
@@ -106,7 +106,7 @@ async function run() {
         app.patch('/orders/:id', verifyJWT, async (req, res) => {
             const id = req.params.id;
             const payment = req.body;
-            const query = {_id: ObjectId(id)};
+            const query = { _id: ObjectId(id) };
             const updatedDoc = {
                 $set: {
                     paid: true,
@@ -115,19 +115,26 @@ async function run() {
             };
             const result = await paymentCollection.insertOne(payment);
             const updatedOrder = await ordersCollection.updateOne(query, updatedDoc);
-            res.send(updatedDoc)
+            res.send(updatedOrder)
+        });
+
+        app.delete('/orders/:id', verifyJWT, async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await ordersCollection.deleteOne(query);
+            res.send(result);
         })
 
-        app.post('/create-payment-intent', verifyJWT, async(req, res) => {
+        app.post('/create-payment-intent', verifyJWT, async (req, res) => {
             const order = req.body;
             const price = order.price;
-            const amount = price*100;
+            const amount = price * 100;
             const paymentIntent = await stripe.paymentIntents.create({
                 amount: amount,
                 currency: 'usd',
                 payment_method_types: ['card']
             });
-            res.send({clientSecret: paymentIntent.client_secret})
+            res.send({ clientSecret: paymentIntent.client_secret })
         });
 
         app.get('/admin/:email', async (req, res) => {
