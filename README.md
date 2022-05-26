@@ -1,16 +1,16 @@
-> # ["Computer Manager" Live Website Link :](https://www.google.com)
+> # ["Computer Manager" Live Website Link :](https://computer-manager-3faf4.web.app/)
 
-### [https://www.google.com](https://www.google.com)
+### [https://computer-manager-3faf4.web.app/](https://computer-manager-3faf4.web.app/)
 
-> # ["Computer Manager Client" Private Repo Link :](https://www.google.com)
+> # ["Computer Manager Client" Private Repo Link :](https://github.com/programming-hero-web-course1/manufacturer-website-client-side-MahfujAhsan)
 
-### [https://www.google.com](https://www.google.com)
+### [https://github.com/programming-hero-web-course1/manufacturer-website-client-side-MahfujAhsan](https://github.com/programming-hero-web-course1/manufacturer-website-client-side-MahfujAhsan)
 
 ---
 
-> # ["Computer Manager Server" Private Repo Link :](https://www.google.com)
+> # ["Computer Manager Server" Private Repo Link :](https://github.com/programming-hero-web-course1/manufacturer-website-server-side-MahfujAhsan)
 
-### [https://www.google.com](https://www.google.com)
+### [https://github.com/programming-hero-web-course1/manufacturer-website-server-side-MahfujAhsan](https://github.com/programming-hero-web-course1/manufacturer-website-server-side-MahfujAhsan)
 
 ---
 
