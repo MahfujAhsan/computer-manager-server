@@ -34,6 +34,7 @@
 | sweetalert2               |     | 11.4.16 |
 | theme-change              |     |   2.0.2 |
 | react-stripe-js           |     |   1.8.0 |
+| aos                       |     |   2.3.4 |
 
 ## _Backend End Tech._ :
 
