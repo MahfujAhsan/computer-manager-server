@@ -195,7 +195,7 @@ async function run() {
 run().catch(console.dir);
 
 app.get("/", (req, res) => {
-    res.send('Computer Manager Running')
+    res.send('Computer Manager Run')
 });
 
 app.listen(port, () => {
