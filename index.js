@@ -68,7 +68,7 @@ async function run() {
             res.send(result);
         });
 
-        app.get('/reviews', verifyJWT, async (req, res) => {
+        app.get('/reviews',  async (req, res) => {
             const query = {};
             const cursor = reviewsCollection.find(query);
             const review = await cursor.toArray();
