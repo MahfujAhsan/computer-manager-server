@@ -35,6 +35,7 @@ async function run() {
         const productsCollection = client.db('computerManager').collection('products');
         const ordersCollection = client.db('computerManager').collection('orders');
         const usersCollection = client.db('computerManager').collection('users');
+        const reviewsCollection = client.db('computerManager').collection('reviews');
         const paymentCollection = client.db('computerManager').collection('payments');
 
         const verifyAdmin = async (req, res, next) => {
@@ -59,6 +60,19 @@ async function run() {
             const product = req.body;
             const result = await productsCollection.insertOne(product);
             res.send(result);
+        });
+
+        app.post('/reviews', verifyJWT, async (req, res) => {
+            const review = req.body;
+            const result = await reviewsCollection.insertOne(review);
+            res.send(result);
+        });
+
+        app.get('/reviews', verifyJWT, async (req, res) => {
+            const query = {};
+            const cursor = reviewsCollection.find(query);
+            const review = await cursor.toArray();
+            res.send(review);
         });
 
         app.delete('/products/:id', verifyJWT, verifyAdmin, async (req, res) => {
