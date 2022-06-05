@@ -14,6 +14,12 @@
 
 ---
 
+> adminID: ahsanmahfuj@gmail.com
+</br>
+> password: 123456
+
+---
+
 > ## Technologies that used in This Project
 
 ## _Front End Tech._ :
